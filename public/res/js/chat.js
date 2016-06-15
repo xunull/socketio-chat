@@ -24,6 +24,7 @@ $(function() {
         }
     });
 
+
     $("#say").click(function() {
         say();
     });
@@ -32,6 +33,14 @@ $(function() {
         var msg = msg_input.val();
         msg_input.val(null);
         insertChatMsgRight(msg);
+        msgScrollEnd();
+    }
+
+    var msg_end = $("#msg_end");
+
+    // 聊天框显示出最新的
+    function msgScrollEnd() {
+        msg_end[0].scrollIntoView();
     }
 
     /**
@@ -44,15 +53,20 @@ $(function() {
         var clone = chatMsgRight.clone();
         clone.find(".direct-chat-timestamp").html((new Date()).toLocaleTimeString());
         clone.find(".direct-chat-text").html(content);
-        $(".direct-chat-messages").append(clone);
+        msg_end.before(clone);
+
     }
 
     /**
      * 对方的消息
      * @return {[type]} [description]
      */
-    function insertChatMsgLeft() {
-
+    function insertChatMsgLeft(content) {
+        var date = new Date();
+        var clone = chatMsgLeft.clone();
+        clone.find(".direct-chat-timestamp").html((new Date()).toLocaleTimeString());
+        clone.find(".direct-chat-text").html(content);
+        msg_end.before(clone);
     }
 
 });
