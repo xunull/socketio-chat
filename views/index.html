@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="/public/libs/font-awesome/css/font-awesome.css">
 
     <style media="screen">
-      .container {
-        margin-top: 150px;
-      }
+        .container {
+            margin-top: 150px;
+        }
     </style>
 </head>
 
@@ -21,7 +21,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
-              
+
                 <div class="box box-success direct-chat direct-chat-success">
                     <div class="box-header with-border">
                         <h3 class="box-title">Direct Chat</h3>
@@ -96,9 +96,9 @@
                     <!-- /.box-body -->
                     <div class="box-footer">
                         <div class="input-group">
-                            <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                            <input id="msg-input" type="text" name="message" placeholder="Type Message ..." class="form-control">
                             <span class="input-group-btn">
-                  <button type="button" class="btn btn-success btn-flat">Send</button>
+                  <button id="say" type="button" class="btn btn-success btn-flat">Send</button>
                 </span>
                         </div>
                     </div>
@@ -110,5 +110,11 @@
     </div>
 
 </body>
+<script src="/public/libs/jquery/jquery-2.2.3.js" charset="utf-8"></script>
+<script src="/public/libs/socket.io/socket.io.js" charset="utf-8"></script>
+<script src="/public/libs/bootstrap/js/bootstrap.js" charset="utf-8"></script>
+<script src="/public/libs/angular/angular.js" charset="utf-8"></script>
+
+<script src="/public/res/js/chat.js" charset="utf-8"></script>
 
 </html>
