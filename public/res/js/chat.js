@@ -24,16 +24,20 @@ $(function() {
         }
     });
 
-
     $("#say").click(function() {
         say();
     });
 
     function say() {
         var msg = msg_input.val();
-        msg_input.val(null);
-        insertChatMsgRight(msg);
-        msgScrollEnd();
+        if (msg !== '') {
+            msg_input.val(null);
+            insertChatMsgRight(msg);
+            msgScrollEnd();
+
+            // 发送到服务器
+            my_connect.sendToUser('aaaaaaa');
+        }
     }
 
     var msg_end = $("#msg_end");

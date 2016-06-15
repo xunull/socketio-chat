@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html ng-app='chatApp'>
 
 <head>
     <meta charset="utf-8">
     <title>chat</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <link rel="stylesheet" href="/public/libs/bootstrap/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="/public/libs/flat-ui/css/flat-ui.css"> -->
     <link rel="stylesheet" href="/public/libs/adminLTE/css/AdminLTE.min.css">
     <link rel="stylesheet" href="/public/libs/font-awesome/css/font-awesome.css">
 
@@ -46,7 +47,7 @@
                                 <!-- /.direct-chat-info -->
                                 <img class="direct-chat-img" src="/public/libs/adminLTE/img/user1-128x128.jpg" alt="message user image">
                                 <!-- /.direct-chat-img -->
-                                <div class="direct-chat-text">
+                                <div style="display:inline" class="direct-chat-text">
                                     Is this template really for free? That's unbelievable!
                                 </div>
                                 <!-- /.direct-chat-text -->
@@ -62,7 +63,7 @@
                                 <!-- /.direct-chat-info -->
                                 <img class="direct-chat-img" src="/public/libs/adminLTE/img/user3-128x128.jpg" alt="message user image">
                                 <!-- /.direct-chat-img -->
-                                <div class="direct-chat-text">
+                                <div style="text-align:right;" class="direct-chat-text">
                                     You better believe it!
                                 </div>
                                 <!-- /.direct-chat-text -->
@@ -110,12 +111,51 @@
         </div>
     </div>
 
+    <!-- 输入用户名的modal -->
+    <!-- fade会有动画效果 -->
+    <div class="modal fade" id="init" tabindex="-1" data-backdrop='static' role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div ng-controller="sign" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">输入一个用户名,然后开始吧</h4>
+                </div>
+                <div class="modal-body">
+                    <form novalidate class="form-horizontal">
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-9">
+                                <input ng-model='username' type="text" class="form-control" name="username" id="username" placeholder="username">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="col-sm-3 col-sm-offset-4">
+                        <button ng-click='signUser()' type="button" class="btn btn-primary">确定</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="/public/libs/jquery/jquery-2.2.3.js" charset="utf-8"></script>
 <script src="/public/libs/socket.io/socket.io.js" charset="utf-8"></script>
 <script src="/public/libs/bootstrap/js/bootstrap.js" charset="utf-8"></script>
 <script src="/public/libs/angular/angular.js" charset="utf-8"></script>
 
+<script src="/public/res/js/config.js" charset="utf-8"></script>
+<script src="/public/res/js/main.js" charset="utf-8"></script>
 <script src="/public/res/js/chat.js" charset="utf-8"></script>
+<script src="/public/res/js/connect.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+    $(function() {
+        $("#init").modal('show');
+    })
+</script>
 
 </html>
