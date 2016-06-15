@@ -28,7 +28,7 @@ app.set('view engine', 'html');
 app.engine('html', require('ejs').__express);
 
 // 网站安全增强
-app.use(helmet());
+// app.use(helmet());
 
 _.extend(app.locals, {
     config: config

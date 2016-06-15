@@ -11,6 +11,8 @@ chatApp.controller('sign', function($scope, $http) {
         } else {
             user.username = $scope.username;
             $("#init").modal('hide');
+            my_connect.setUsername($scope.username);
         }
+
     };
 });

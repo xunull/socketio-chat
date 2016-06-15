@@ -116,10 +116,10 @@ var my_connect = {};
  * @param optype
  * @param content
  */
-my_connect.deliver = function(content) {
-    socket.emit("letter", JSON.stringify(content));
+my_connect.deliver = function(letter) {
+    socket.emit("letter", JSON.stringify(letter));
 
-    console.log("deliver = " + JSON.stringify(content));
+    console.log("deliver = " + JSON.stringify(letter));
 };
 
 my_connect.sendToUser = function(msg) {
@@ -127,4 +127,24 @@ my_connect.sendToUser = function(msg) {
     letter.optype = 3001;
     letter.msg = msg;
     my_connect.deliver(letter);
+};
+
+/**
+ * 通知服务器 本人用户名字
+ * @param  {[type]} username [description]
+ * @return {[type]}          [description]
+ */
+my_connect.setUsername = function(username) {
+    // letter 如果不指定收件人,则 postoffice 处理
+    // var letter = {};
+    var letter = {
+      directive:{
+        set:{
+          username:username
+        }
+      }
+
+    };
+    my_connect.deliver(letter);
+
 };
