@@ -1,4 +1,5 @@
 var letter = {
     directive: null,
-    message: null
+    message: null,
+    user: null
 };

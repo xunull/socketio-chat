@@ -78,6 +78,18 @@ socket.on('reconnet_error', function(obj) {
  */
 socket.on('letter', function(letter) {
     console.log(letter);
+    // letter = JSON.parse(letter);
+
+    var key = Object.keys(letter.directive)[0];
+
+    if (directive[key] === undefined) {
+        console.log('directive ' + key + ' 未实现');
+    } else {
+        directive[key](letter);
+
+    }
+
+
 
 });
 
@@ -138,6 +150,24 @@ my_connect.sendToUser = function(msg) {
     my_connect.deliver(letter);
 };
 
+my_connect.sign_in = function(username) {
+    var letter = {
+        directive: {
+            client: {
+                sign_in: null
+            }
+        },
+        user: {
+            username: username
+        }
+    };
+    my_connect.deliver(letter);
+};
+
+my_connect.user_presence = function(letter) {
+
+};
+
 /**
  * 通知服务器 本人用户名字
  * @param  {[type]} username [description]
@@ -152,8 +182,26 @@ my_connect.setUsername = function(username) {
                 username: username
             }
         }
-
     };
     my_connect.deliver(letter);
 
 };
+
+function Directive() {
+
+}
+
+Directive.prototype.client = function(letter) {
+    var client = {};
+    client.user_presence = function(letter) {
+        var user = letter.user;
+        console.log(user);
+
+        chat.users.push(user);
+    };
+    var key = Object.keys(letter.directive.client);
+    client[key](letter);
+
+};
+
+var directive = new Directive();

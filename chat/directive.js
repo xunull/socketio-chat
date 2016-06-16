@@ -6,6 +6,7 @@ var _ = require('lodash');
 var directiveSet = require('./directive/set');
 var directiveGet = require('./directive/get');
 var directiveSend = require('./directive/send');
+var directiveClient = require('./directive/client');
 
 // socket.io  的 io 对象
 var myio = {};
@@ -15,7 +16,6 @@ module.exports = Directive;
 function Directive(io) {
     this.io = io;
     myio = io;
-
 }
 
 Directive.prototype.handle = function(letter, session) {
@@ -29,6 +29,10 @@ Directive.prototype.handle = function(letter, session) {
     this[key](letter, session);
 };
 
+Directive.prototype.client = function(letter, session) {
+    var key = _.keys(letter.directive.client)[0];
+    directiveClient[key](letter, session);
+};
 
 Directive.prototype.send = function(letter, session) {
     var key = _.keys(letter.directive.send)[0];

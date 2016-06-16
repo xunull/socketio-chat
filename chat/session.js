@@ -2,6 +2,7 @@ var uuid = require('uuid');
 /**
  * 此session 当一个客户端成功连接到后台的时候被创建
  * 并且在其他地方会以 username 为key 引用此session
+ *  这些 map 很多都是原型的属性, 共享的属性
  */
 function Session() {
     //  随机生成一个id

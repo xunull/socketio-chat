@@ -21,7 +21,13 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
+            <div class="col-sm-3" ng-controller='userList'>
+                <select class="form-control" multiple="">
+
+                    <option ng-repeat="user in users">{{user.username}}</option>
+                </select>
+            </div>
+            <div class="col-sm-6 ">
 
                 <div class="box box-success direct-chat direct-chat-success">
                     <div class="box-header with-border">

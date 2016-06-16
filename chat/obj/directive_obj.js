@@ -18,6 +18,10 @@ var directive = {
     },
     channel: {
 
+    },
+    client: {
+        user_presence: null,
+        sign_in: null
     }
 
 };
