@@ -3,27 +3,12 @@ var my_mongodb = require('../../core/mongodb');
 var Schema = my_mongodb.Schema;
 var mongoose = my_mongodb.mongoose;
 
-var msgSchema = Schema({
-    msgid: String,
-    fromuserid: String,
-    touserid: String,
-    content: String
+var userSchema = Schema({
+    username: String
 });
 
-/**
- * 目前是一次讲该用户所有的聊天记录读取
- * @param  {[type]}   touserid [description]
- * @param  {Function} cb       [description]
- * @return {[type]}            [description]
- */
-msgSchema.statics.userChatHistory = function(touserid, cb) {
-    return this.find({
-        touserid: touserid
-    }, cb);
-};
+var User = mongoose.model('user', userSchema);
 
-var Msg = mongoose.model('chat_msg', msgSchema);
+exports.userSchema = userSchema;
 
-exports.msgSchema = msgSchema;
-
-exports.Msg = Msg;
+exports.User = User;

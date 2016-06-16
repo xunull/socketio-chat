@@ -26,8 +26,7 @@ function SocketioServer(http) {
         logger.debug('a client connected, socket id is ' + socket.id);
 
         // 初始化此连接的session
-        var session = new Session();
-        initSession(session);
+        var session = initSession(socket);
 
         // letter 事件是本系统内的消息事件
         socket.on('letter', function(letter) {
@@ -46,11 +45,21 @@ function SocketioServer(http) {
     });
 }
 
-function initSession(session) {
-    sessionsMap.set(socket.id, session);
+function initSession(socket) {
+    var session = new Session();
+    session.setSocket(socket);
+    session.deliver = deliver;
+    return session;
 }
 
-
+/**
+ * 此方法追加到session 对象上
+ * @param  {[type]} letter [description]
+ * @return {[type]}        [description]
+ */
+function deliver(letter) {
+    this.getSocket().emit('letter', letter);
+}
 
 
 

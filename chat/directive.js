@@ -5,6 +5,7 @@ var _ = require('lodash');
 // 引入处理指令
 var directiveSet = require('./directive/set');
 var directiveGet = require('./directive/get');
+var directiveSend = require('./directive/send');
 
 // socket.io  的 io 对象
 var myio = {};
@@ -26,19 +27,20 @@ Directive.prototype.handle = function(letter, session) {
     var key = _.keys(letter.directive)[0];
 
     this[key](letter, session);
+};
 
+
+Directive.prototype.send = function(letter, session) {
+    var key = _.keys(letter.directive.send)[0];
+    directiveSend[key](letter, session);
 };
 
 Directive.prototype.set = function(letter, session) {
     var key = _.keys(letter.directive.set)[0];
-    var value = letter.directive.key;
-
     directiveSet[key](letter, session);
 };
 
 Directive.prototype.get = function(letter, session) {
     var key = _.keys(letter.directive.get)[0];
-    var value = letter.directive.key;
-
-    directiveGet[key](value, session);
+    directiveGet[key](letter, session);
 };

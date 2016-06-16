@@ -76,12 +76,9 @@ socket.on('reconnet_error', function(obj) {
 /**
  * letter 是自定义的消息事件
  */
-socket.on('letter', function(content) {
-    console.log(content);
-    // content = JSON.parse(content);
-    switch (content.optype) {
+socket.on('letter', function(letter) {
+    console.log(letter);
 
-    }
 });
 
 /**
@@ -123,9 +120,21 @@ my_connect.deliver = function(letter) {
 };
 
 my_connect.sendToUser = function(msg) {
-    var letter = {};
-    letter.optype = 3001;
-    letter.msg = msg;
+
+    var letter = {
+        directive: {
+            send: {
+                message: null
+            }
+        },
+        message: {
+            sendUser: '111',
+            receiveUser: '222',
+            type: 'one',
+            content: 'qwer1234'
+        }
+    };
+
     my_connect.deliver(letter);
 };
 
@@ -138,11 +147,11 @@ my_connect.setUsername = function(username) {
     // letter 如果不指定收件人,则 postoffice 处理
     // var letter = {};
     var letter = {
-      directive:{
-        set:{
-          username:username
+        directive: {
+            set: {
+                username: username
+            }
         }
-      }
 
     };
     my_connect.deliver(letter);

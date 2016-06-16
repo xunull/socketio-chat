@@ -22,7 +22,7 @@ msgSchema.statics.userChatHistory = function(touserid, cb) {
     }, cb);
 };
 
-var Msg = mongoose.model('chat_msg', msgSchema);
+var Msg = mongoose.model('msg', msgSchema);
 
 exports.msgSchema = msgSchema;
 
