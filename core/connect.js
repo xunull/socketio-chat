@@ -6,26 +6,32 @@ var io_server = require('socket.io');
 var logger = require('../common/logger');
 var config = require('../config');
 
-var My_connect = require('../chat/handler');
+var Session = require('../chat/session');
+var Directive = require('../chat/directive');
 var xredis = require('../core/redis');
-var my_connect;
+var directive;
 
 var io;
+
+var sessionsMap = new Map();
 
 module.exports = SocketioServer;
 
 function SocketioServer(http) {
     // io = io_server(http);
     io = io_server(config.socketio.port);
-    my_connect = new My_connect(io);
+    directive = new Directive(io);
 
     io.on('connection', function(socket) {
-        console.log('a web client connected, socket id is ' + socket.id);
+        logger.debug('a client connected, socket id is ' + socket.id);
 
+        // 初始化此连接的session
+        var session = new Session();
+        initSession(session);
+
+        // letter 事件是本系统内的消息事件
         socket.on('letter', function(letter) {
-
-            my_connect.handle(letter, socket);
-
+            directive.handle(letter, session);
         });
 
         socket.on('error', function(err) {
@@ -34,12 +40,19 @@ function SocketioServer(http) {
         });
 
         socket.on('disconnect', function() {
-            console.log('a web clientt disconnect, socket id is ' + socket.id);
-
+            console.log('a client disconnect, socket id is ' + socket.id);
         });
 
     });
 }
+
+function initSession(session) {
+    sessionsMap.set(socket.id, session);
+}
+
+
+
+
 
 /**
  * 关闭socketio
