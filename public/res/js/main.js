@@ -21,15 +21,11 @@ chatApp.controller('sign', function($scope, $http) {
 var chat = {};
 chat.users = [];
 
-// var haha = 0;
-// setInterval(function() {
-//     ++haha;
-//     chat.users.push({
-//         username: haha
-//     });
-//     console.log(chat.users);
-// }, 3000);
+// 暴露 userList 的$scope 给外界使用
+var userListScope;
 
 chatApp.controller('userList', function($scope, $http) {
+    userListScope = $scope;
     $scope.users = chat.users;
+
 });

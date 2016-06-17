@@ -198,6 +198,8 @@ Directive.prototype.client = function(letter) {
         console.log(user);
 
         chat.users.push(user);
+        console.log(userListScope);
+        userListScope.$apply();
     };
     var key = Object.keys(letter.directive.client);
     client[key](letter);
