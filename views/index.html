@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/public/libs/adminLTE/css/AdminLTE.min.css">
     <link rel="stylesheet" href="/public/libs/font-awesome/css/font-awesome.css">
 
+    <link rel="stylesheet" href="/public/res/css/main.css">
     <style media="screen">
         .container {
             margin-top: 150px;
@@ -21,14 +22,22 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm-3" ng-controller='userList'>
+            <!-- <div class="col-sm-3" ng-controller='userList'>
+                <div>
+                    <img class="user-avatar" src="/public/res/img/avatar/avatar0.png" alt="" />
+                    <span>haha</span>
+                </div>
                 <select class="form-control" multiple="">
                     <option ng-repeat="user in users">{{user.username}}</option>
                 </select>
 
-            </div>
-            <div class="col-sm-6 ">
+            </div> -->
 
+            <div class="col-sm-3">
+                <user-list></user-list>
+            </div>
+
+            <div class="col-sm-6 ">
                 <div class="box box-success direct-chat direct-chat-success">
                     <div class="box-header with-border">
                         <h3 class="box-title">Direct Chat</h3>
@@ -157,6 +166,9 @@
 <script src="/public/res/js/main.js" charset="utf-8"></script>
 <script src="/public/res/js/chat.js" charset="utf-8"></script>
 <script src="/public/res/js/connect.js" charset="utf-8"></script>
+
+<!-- angular res -->
+<script src="/public/res/js/ang/useravatarinfo.component.js" charset="utf-8"></script>
 
 <script type="text/javascript">
     $(function() {

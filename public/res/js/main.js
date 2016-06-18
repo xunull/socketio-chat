@@ -12,7 +12,6 @@ chatApp.controller('sign', function($scope, $http) {
             user.username = $scope.username;
             $("#init").modal('hide');
             // my_connect.setUsername($scope.username);
-
             my_connect.sign_in($scope.username);
         }
     };
@@ -27,5 +26,4 @@ var userListScope;
 chatApp.controller('userList', function($scope, $http) {
     userListScope = $scope;
     $scope.users = chat.users;
-
 });
