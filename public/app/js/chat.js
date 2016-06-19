@@ -1,17 +1,23 @@
-$(function() {
+define(['jquery'], function($) {
 
     // 没有<> 就变成选取元素了
     var templateDiv = $("<div>");
 
-    var chatMsgRight,
-        chatMsgLeft;
+    // 自己的聊天消息
+    var chatMsgRight;
+    // 他人的聊天消息
+    var chatMsgLeft;
+    // 聊天窗口
+    var chatWindow;
+
+
 
     // TODO 防止缓存的问题
-    templateDiv.load('/public/res/template/template.html', function() {
-        console.log('template 加载完毕');
+    templateDiv.load('/public/app/template/template.html', function() {
 
         chatMsgRight = templateDiv.find("#msg-right>div");
         chatMsgLeft = templateDiv.find("#msg-left>div");
+        chatWindow = templateDiv.find("#chatWindow>div");
 
     });
 
@@ -94,19 +100,40 @@ $(function() {
         msg_end.before(clone);
     }
 
+    var chat = {};
+    chat.users = [];
+    chat.currentChat = {
+        username: null,
+        chatname: null
+    };
+
+    chat.chatWindow = chatWindow;
+
+    chat.signinuser = {
+        username: null
+    };
+    // key username value chat window  dom
+    chat.chatWindowDom = new Map();
+
+    chat.toggleChatView = function(user) {
+
+        console.log(chat.chatWindow);
+
+        var userDom = chat.chatWindowDom.get(user.username);
+
+        if (userDom === undefined || userDom === null) {
+            userDom = chat.chatWindow.clone();
+            chat.chatWindowDom.set(user.username, userDom);
+            userDom.find('#chatWindow-username').html(user.username);
+        } else {
+            console.log('userdom is not null');
+        }
+
+        $('#chatWindowDiv').replaceWith(userDom);
+    };
+
+    return chat;
 });
-
-
-var chat = {};
-chat.users = [];
-chat.currentChat = {
-    username: null,
-    chatname: null
-};
-
-chat.signinuser = {
-    username: null
-};
 
 function consoleDate() {
     var date = new Date();
