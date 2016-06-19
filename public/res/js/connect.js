@@ -89,8 +89,6 @@ socket.on('letter', function(letter) {
 
     }
 
-
-
 });
 
 /**
@@ -185,14 +183,14 @@ Directive.prototype.client = function(letter) {
         userListScope.$apply();
     };
     client.init_userList = function(letter) {
-      
+
         // 这样使用  第二个参数是参数数组, 而其正好就是一个数组
         Array.prototype.push.apply(chat.users, letter.directive.client.init_userList);
 
-        // for (var user in letter.directive.client.init_userList) {
-        //     chat.users.push(user);
-        // }
-        // chat.users.push(letter.directive.client.init_userList);
+        chat.users.forEach(function(user) {
+            user.avatar = genereateAvatarImg();
+        });
+
         console.log(chat.users);
         userListScope.$apply();
 
@@ -201,6 +199,11 @@ Directive.prototype.client = function(letter) {
     client[key](letter);
 
 };
+
+// 随机生成一个用户的头像
+function genereateAvatarImg() {
+    return '/public/res/img/avatar/avatar' + (Math.floor(Math.random() * 5) + 1) + '.png';
+}
 
 Directive.prototype.receive = function(letter) {
     var message = letter.message;

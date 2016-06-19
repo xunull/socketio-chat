@@ -3,7 +3,7 @@ var userListScope;
 angular.module('chatApp').component('userList', {
     template: `<div>
                   <div ng-click='toggleChat(user)' ng-repeat='user in users'>
-                      <img class="user-avatar" src="/public/res/img/avatar/avatar0.png" alt="" />
+                      <img class="user-avatar" ng-src='{{user.avatar}}' alt="" />
                       <span>{{user.username}}</span>
                   </div>
                 </div>`,
@@ -18,6 +18,5 @@ angular.module('chatApp').component('userList', {
             chat.currentChat.username = user.username;
             console.log(chat.currentChat.username);
         };
-
     }
 });
