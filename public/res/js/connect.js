@@ -131,22 +131,7 @@ my_connect.deliver = function(letter) {
     console.log("deliver = " + JSON.stringify(letter));
 };
 
-my_connect.sendToUser = function(msg) {
-
-    var letter = {
-        directive: {
-            send: {
-                message: null
-            }
-        },
-        message: {
-            sendUser: '111',
-            receiveUser: '222',
-            type: 'one',
-            content: 'qwer1234'
-        }
-    };
-
+my_connect.sendToUser = function(letter) {
     my_connect.deliver(letter);
 };
 
@@ -195,15 +180,30 @@ Directive.prototype.client = function(letter) {
     var client = {};
     client.user_presence = function(letter) {
         var user = letter.user;
-        console.log(user);
 
         chat.users.push(user);
-        console.log(userListScope);
         userListScope.$apply();
+    };
+    client.init_userList = function(letter) {
+      
+        // 这样使用  第二个参数是参数数组, 而其正好就是一个数组
+        Array.prototype.push.apply(chat.users, letter.directive.client.init_userList);
+
+        // for (var user in letter.directive.client.init_userList) {
+        //     chat.users.push(user);
+        // }
+        // chat.users.push(letter.directive.client.init_userList);
+        console.log(chat.users);
+        userListScope.$apply();
+
     };
     var key = Object.keys(letter.directive.client);
     client[key](letter);
 
+};
+
+Directive.prototype.receive = function(letter) {
+    var message = letter.message;
 };
 
 var directive = new Directive();

@@ -21,6 +21,8 @@ module.exports = Session;
 Session.prototype.sessionsMap = new Map();
 // key username , value user
 Session.prototype.usersMap = new Map();
+
+Session.prototype.usersList = [];
 // key socketid , value socket
 Session.prototype.socketsMap = new Map();
 // key username , value session
@@ -30,6 +32,7 @@ Session.prototype.setUser = function(user) {
     this.user = user;
     this.usersMap.set(user.username, user);
     this.userSessionsMap.set(user.username, this);
+    this.usersList.push(user);
 };
 
 Session.prototype.getUser = function() {

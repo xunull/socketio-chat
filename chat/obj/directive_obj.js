@@ -21,7 +21,8 @@ var directive = {
     },
     client: {
         user_presence: null,
-        sign_in: null
+        sign_in: null,
+        init_userList: null  // 参数就是userlist
     }
 
 };

@@ -35,8 +35,29 @@ $(function() {
             insertChatMsgRight(msg);
             msgScrollEnd();
 
+            var letter = {
+                directive: {
+                    send: {
+                        message: null
+                    }
+                },
+                message: {
+                    sendUser: chat.signinuser.username,
+                    content: msg
+                }
+            };
+            if (chat.currentChat.username !== null) {
+                // 单聊
+                letter.message.receiveUser = chat.currentChat.username;
+                letter.message.type = 'one';
+            } else {
+                // 群聊
+                letter.message.receiveUser = chat.currentChat.chatname;
+                letter.message.type = 'some';
+            }
+
             // 发送到服务器
-            my_connect.sendToUser('aaaaaaa');
+            my_connect.sendToUser(letter);
         }
     }
 
@@ -74,6 +95,18 @@ $(function() {
     }
 
 });
+
+
+var chat = {};
+chat.users = [];
+chat.currentChat = {
+    username: null,
+    chatname: null
+};
+
+chat.signinuser = {
+    username: null
+};
 
 function consoleDate() {
     var date = new Date();

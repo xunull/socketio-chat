@@ -36,6 +36,20 @@ Client.prototype.user_presence = function(letter, session) {
 Client.prototype.sign_in = function(letter, session) {
     session.setUser(letter.user);
     this.user_presence(letter, session);
+    // 登录完后会向客户端推送用户列表
+    this.init_userList(letter, session);
+};
+
+Client.prototype.init_userList = function(letter, session) {
+
+    letter = {
+        directive: {
+            client: {
+                init_userList: session.usersList
+            }
+        }
+    };
+    session.deliver(letter);
 };
 
 var client = new Client();

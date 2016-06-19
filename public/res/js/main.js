@@ -11,19 +11,17 @@ chatApp.controller('sign', function($scope, $http) {
         } else {
             user.username = $scope.username;
             $("#init").modal('hide');
-            // my_connect.setUsername($scope.username);
+            chat.signinuser.username = $scope.username;
             my_connect.sign_in($scope.username);
         }
     };
 });
 
-var chat = {};
-chat.users = [];
 
-// 暴露 userList 的$scope 给外界使用
-var userListScope;
-
-chatApp.controller('userList', function($scope, $http) {
-    userListScope = $scope;
-    $scope.users = chat.users;
-});
+// // 暴露 userList 的$scope 给外界使用
+// var userListScope;
+//
+// chatApp.controller('userList', function($scope, $http) {
+//     userListScope = $scope;
+//     $scope.users = chat.users;
+// });
