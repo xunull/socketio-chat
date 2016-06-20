@@ -1,4 +1,8 @@
-var userListScope;
+var chat = require('../chat');
+var userAvatarComponent = {
+    userListScope: null
+};
+
 
 angular.module('chatApp').component('userList', {
     template: `<div>
@@ -11,8 +15,7 @@ angular.module('chatApp').component('userList', {
 
         // 使用scope 是因为 在外界改变了 users 的值 为了使用 $scope.$apply方法
         $scope.users = chat.users;
-        userListScope = $scope;
-
+        userAvatarComponent.userListScope = $scope;
         $scope.toggleChat = function(user) {
             chat.currentChat.username = user.username;
 
@@ -21,3 +24,5 @@ angular.module('chatApp').component('userList', {
         };
     }
 });
+
+module.exports = userAvatarComponent;

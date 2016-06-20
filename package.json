@@ -29,5 +29,8 @@
     "socket.io": "^1.4.6",
     "tracer": "^0.8.3",
     "uuid": "^2.0.2"
+  },
+  "devDependencies": {
+    "webpack": "^1.13.1"
   }
 }
