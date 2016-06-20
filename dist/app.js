@@ -460,12 +460,14 @@
 
 	Directive.prototype.client = function(letter) {
 	    var client = {};
+	    // 有其他用户上线时会调用
 	    client.user_presence = function(letter) {
 	        var user = letter.user;
-
+	        user.avatar = genereateAvatarImg();
 	        chat.users.push(user);
 	        middle.userAvatarComponent.userListScope.$apply();
 	    };
+	    // 登陆后加载当前已经登录的用户
 	    client.init_userList = function(letter) {
 
 	        // 这样使用  第二个参数是参数数组, 而其正好就是一个数组
