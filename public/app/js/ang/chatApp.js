@@ -2,7 +2,7 @@ var middle = require('../middle');
 var chat = require('../chat');
 
 var chatApp = angular.module('chatApp', []);
-console.log(237894897234234);
+
 chatApp.controller('sign', function($scope, $http) {
 
 
@@ -14,7 +14,7 @@ chatApp.controller('sign', function($scope, $http) {
         } else {
             $("#init").modal('hide');
             chat.signinuser.username = $scope.username;
-            middle.my_connect.sign_in($scope.username);
+            chat.signIn($scope.username);
         }
 
     };
