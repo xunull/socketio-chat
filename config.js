@@ -1,6 +1,6 @@
 var config = {
     debug: true,
-    port: 15321,
+    port: 3000,
     redis: {
         port: 12312,
         host: "127.0.0.1",
@@ -8,7 +8,7 @@ var config = {
         opts: {}
     },
     socketio:{
-      port:23234
+      port:3000
     }
 };
 

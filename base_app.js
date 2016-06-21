@@ -11,6 +11,8 @@ var app_router = require('./app_router');
 
 var app = express();
 
+
+
 // 静态文件目录
 var staticDir = path.join(__dirname, 'public');
 var distDir = path.join(__dirname, 'dist');
@@ -44,10 +46,11 @@ _.extend(app.locals, {
 // router
 app.use('/', app_router);
 
-app.listen(config.port, function() {
+var server = app.listen(config.port, function() {
     logger.info('listening on port', config.port);
     logger.info('You can debug your app with http://' + config.hostname + ':' + config.port);
     logger.info('');
 });
 
-module.exports = app;
+exports.app = app;
+exports.server = server;

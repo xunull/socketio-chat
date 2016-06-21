@@ -18,8 +18,11 @@ var sessionsMap = new Map();
 module.exports = SocketioServer;
 
 function SocketioServer(http) {
-    // io = io_server(http);
-    io = io_server(config.socketio.port);
+
+    // 都可以
+    io = io_server(http);
+    // io = io_server.listen(http);
+
     directive = new Directive(io);
 
     io.on('connection', function(socket) {
