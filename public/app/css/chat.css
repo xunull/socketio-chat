@@ -7,7 +7,7 @@
 }
 .user-list-item {
     border-bottom-style: groove;
-    border-bottom-color: cyan;
+    border-bottom-color: #339999;
 }
 .user-list-item:hover {
     background-color: cyan;
@@ -24,4 +24,12 @@
     padding: 10px;
     height: 400px;
     overflow: auto;
+}
+.chat-container {
+    border: 2px solid #339999;
+    border-radius: 6px;
+}
+
+body {
+  background-image: url('../img/background.jpg');
 }

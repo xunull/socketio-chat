@@ -9,7 +9,7 @@
     <!-- <link rel="stylesheet" href="/public/libs/flat-ui/css/flat-ui.css"> -->
     <link rel="stylesheet" href="/public/libs/adminLTE/css/AdminLTE.min.css">
     <link rel="stylesheet" href="/public/libs/font-awesome/css/font-awesome.css">
-
+    <link rel="stylesheet" href="/public/libs/bootstrap.switch/css/bootstrap3/bootstrap-switch.css">
     <link rel="stylesheet" href="/public/app/css/main.css">
     <link rel="stylesheet" href="/public/app/css/chat.css">
     <style media="screen">
@@ -44,7 +44,7 @@
             </div>
             <!-- /.container-fluid -->
         </nav>
-        <div class="row">
+        <div class="row chat-container">
             <!-- <div class="col-sm-3" ng-controller='userList'>
                 <div>
                     <img class="user-avatar" src="/public/res/img/avatar/avatar0.png" alt="" />
@@ -65,6 +65,15 @@
 
                 </div>
                 <!--/.direct-chat -->
+            </div>
+            <div class="col-sm-3">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="" class='control-label'>通知声音</label>
+                        <input type="checkbox" name="my-checkbox" checked>
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>
@@ -105,6 +114,8 @@
 <script src="/public/libs/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
 <script src="/public/libs/socket.io/socket.io.js" charset="utf-8"></script>
 <script src="/public/libs/angular/angular.js" charset="utf-8"></script>
+
+<script src="/public/libs/bootstrap.switch/js/bootstrap-switch.js" charset="utf-8"></script>
 
 <script src="/dist/app.js" charset="utf-8"></script>
 <script type="text/javascript">
