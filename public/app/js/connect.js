@@ -183,7 +183,11 @@ function genereateAvatarImg() {
 }
 
 Directive.prototype.receive = function(letter) {
-    var message = letter.message;
+    var receive = {};
+    receive.message = function(letter) {
+        var message = letter.message;
+    };
+    public_chat.receiveMessage(letter.message);
 };
 
 var directive = new Directive();

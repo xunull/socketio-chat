@@ -12,22 +12,8 @@ var chatMsgLeft;
 // 聊天窗口
 var chatWindow;
 
-// TODO 防止缓存的问题
-templateDiv.load('/public/app/template/template.html', function() {
-
-    chatMsgRight = templateDiv.find("#msg-right>div");
-    chatMsgLeft = templateDiv.find("#msg-left>div");
-    chatWindow = templateDiv.find("#chatWindow>div");
-
-    // 加载完在赋值
-    chat.chatWindow = chatWindow;
-
-});
 
 var msg_input;
-
-
-
 
 var msg_end;
 
@@ -53,11 +39,12 @@ function insertChatMsgRight(content) {
  * 对方的消息
  * @return {[type]} [description]
  */
-function insertChatMsgLeft(content) {
+function insertChatMsgLeft(message) {
     var date = new Date();
     var clone = chatMsgLeft.clone();
     clone.find(".direct-chat-timestamp").html((new Date()).toLocaleTimeString());
-    clone.find(".direct-chat-text").html(content);
+    clone.find(".direct-chat-text").html(message.content);
+    clone.find('img').attr('src', message.avatar);
     msg_end.before(clone);
 }
 
@@ -65,6 +52,7 @@ function Chat() {
     this.connect = null;
     this.users = [];
     this.currentChat = {
+        theUser: null,
         username: null,
         chatname: null
     };
@@ -107,6 +95,22 @@ Chat.prototype.toggleChatView = function(user) {
     msg_end = userDom.find("#msg_end");
 
     $('#chatWindowDiv').replaceWith(userDom);
+};
+
+Chat.prototype.receiveMessage = function(message) {
+    var sendUser = message.sendUser;
+    if (sendUser === this.currentChat.username) {
+        // 正式当前聊天的
+        message.avatar = this.currentChat.theUser.avatar;
+        this.listen(message);
+    } else {
+        // 当前窗口并不是该用户
+    }
+};
+
+Chat.prototype.listen = function(message) {
+    insertChatMsgLeft(message);
+    msgScrollEnd();
 };
 
 Chat.prototype.say = function() {
@@ -156,5 +160,17 @@ chat.connect = connect;
 
 // 连接server
 connect.connect(config.communication_server_host);
+
+// TODO 防止缓存的问题
+templateDiv.load('/public/app/template/template.html', function() {
+
+    chatMsgRight = templateDiv.find("#msg-right>div");
+    chatMsgLeft = templateDiv.find("#msg-left>div");
+    chatWindow = templateDiv.find("#chatWindow>div");
+
+    // 加载完在赋值
+    chat.chatWindow = chatWindow;
+
+});
 
 module.exports = chat;

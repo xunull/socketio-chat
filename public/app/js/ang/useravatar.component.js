@@ -18,7 +18,7 @@ angular.module('chatApp').component('userList', {
         userAvatarComponent.userListScope = $scope;
         $scope.toggleChat = function(user) {
             chat.currentChat.username = user.username;
-
+            chat.currentChat.theUser = user;
             chat.toggleChatView(user);
 
         };
