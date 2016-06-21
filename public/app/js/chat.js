@@ -83,11 +83,12 @@ Chat.prototype.toggleChatView = function(user) {
             }
         });
 
-        userDom.find('.say').click(function() {
+        userDom.find('#say').click(function() {
             chat.say();
         });
 
     } else {
+
         console.log('userdom is not null');
     }
 

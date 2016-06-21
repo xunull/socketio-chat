@@ -31,6 +31,9 @@
     "uuid": "^2.0.2"
   },
   "devDependencies": {
-    "webpack": "^1.13.1"
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.10",
+    "webpack": "^1.13.1",
+    "webpack-stream": "^3.2.0"
   }
 }

@@ -5,8 +5,8 @@ var userAvatarComponent = {
 
 
 angular.module('chatApp').component('userList', {
-    template: `<div>
-                  <div ng-click='toggleChat(user)' ng-repeat='user in users'>
+    template: `<div class='user-list'>
+                  <div class='user-list-item' ng-click='toggleChat(user)' ng-repeat='user in users'>
                       <img class="user-avatar" ng-src='{{user.avatar}}' alt="" />
                       <span>{{user.username}}</span>
                   </div>
