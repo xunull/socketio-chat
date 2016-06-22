@@ -155,6 +155,7 @@ Directive.prototype.client = function(letter) {
         var user = letter.user;
         user.avatar = genereateAvatarImg();
         public_chat.users.push(user);
+        public_chat.usersMap.set(user.username, user);
         public_chat.refreshUserList();
 
     };
@@ -166,11 +167,10 @@ Directive.prototype.client = function(letter) {
 
         public_chat.users.forEach(function(user) {
             user.avatar = genereateAvatarImg();
+            public_chat.usersMap.set(user.username, user);
         });
 
         public_chat.refreshUserList();
-
-
     };
     var key = Object.keys(letter.directive.client);
     client[key](letter);

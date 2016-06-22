@@ -3,12 +3,13 @@ var userAvatarComponent = {
     userListScope: null
 };
 
-
+// angular 好像使用不了map
 angular.module('chatApp').component('userList', {
     template: `<div class='user-list'>
                   <div class='user-list-item' ng-click='toggleChat(user)' ng-repeat='user in users'>
                       <img class="user-avatar" ng-src='{{user.avatar}}' alt="" />
                       <span>{{user.username}}</span>
+                      <span class="badge">{{user.unreadMsgCount}}</span>
                   </div>
                 </div>`,
     controller: function UserListController($scope) {
@@ -20,7 +21,7 @@ angular.module('chatApp').component('userList', {
             chat.currentChat.username = user.username;
             chat.currentChat.theUser = user;
             chat.toggleChatView(user);
-
+            user.unreadMsgCount = null;
         };
     }
 });

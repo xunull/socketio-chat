@@ -181,7 +181,18 @@
 	    this.chatWindowDom = new Map();
 	}
 	
+	/**
+	 * 清除掉未读信息
+	 * @param  {[type]} user [description]
+	 * @return {[type]}      [description]
+	 */
+	Chat.prototype.clearUnread = function(user) {
+	    user.unreadMsgCount = 0;
+	    middle.userAvatarComponent.userListScope.$apply();
+	};
+	
 	Chat.prototype.toggleChatView = function(user) {
+	
 	    var chat = this;
 	    console.log(chat.chatWindow);
 	    console.log(this);
@@ -223,13 +234,20 @@
 	 */
 	Chat.prototype.receiveMessage = function(message) {
 	    playMsgComingPromptTone();
-	    var sendUser = message.sendUser;
-	    if (sendUser === this.currentChat.username) {
+	    var sendUserName = message.sendUser;
+	    if (sendUserName === this.currentChat.username) {
 	        // 正式当前聊天的
 	        message.avatar = this.currentChat.theUser.avatar;
 	        this.listen(message);
 	    } else {
 	        // 当前窗口并不是该用户
+	        var user = this.usersMap.get(sendUserName);
+	        // 未读消息加1
+	        if (user.unreadMsgCount === undefined) {
+	            user.unreadMsgCount = 0;
+	        }
+	        user.unreadMsgCount += 1;
+	        middle.userAvatarComponent.userListScope.$apply();
 	    }
 	};
 	
@@ -283,6 +301,9 @@
 	Chat.prototype.signIn = function(username) {
 	    this.connect.sign_in(username);
 	};
+	
+	// key username ,value 客户端 user
+	Chat.prototype.usersMap = new Map();
 	
 	var chat = new Chat();
 	var connect = new Connect(chat);
@@ -489,6 +510,7 @@
 	        var user = letter.user;
 	        user.avatar = genereateAvatarImg();
 	        public_chat.users.push(user);
+	        public_chat.usersMap.set(user.username, user);
 	        public_chat.refreshUserList();
 	
 	    };
@@ -500,11 +522,10 @@
 	
 	        public_chat.users.forEach(function(user) {
 	            user.avatar = genereateAvatarImg();
+	            public_chat.usersMap.set(user.username, user);
 	        });
 	
 	        public_chat.refreshUserList();
-	
-	
 	    };
 	    var key = Object.keys(letter.directive.client);
 	    client[key](letter);
@@ -581,12 +602,13 @@
 	    userListScope: null
 	};
 	
-	
+	// angular 好像使用不了map
 	angular.module('chatApp').component('userList', {
 	    template: `<div class='user-list'>
 	                  <div class='user-list-item' ng-click='toggleChat(user)' ng-repeat='user in users'>
 	                      <img class="user-avatar" ng-src='{{user.avatar}}' alt="" />
 	                      <span>{{user.username}}</span>
+	                      <span class="badge">{{user.unreadMsgCount}}</span>
 	                  </div>
 	                </div>`,
 	    controller: function UserListController($scope) {
@@ -598,7 +620,7 @@
 	            chat.currentChat.username = user.username;
 	            chat.currentChat.theUser = user;
 	            chat.toggleChatView(user);
-	
+	            user.unreadMsgCount = null;
 	        };
 	    }
 	});

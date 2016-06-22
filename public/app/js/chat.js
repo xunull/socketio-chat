@@ -63,7 +63,18 @@ function Chat() {
     this.chatWindowDom = new Map();
 }
 
+/**
+ * 清除掉未读信息
+ * @param  {[type]} user [description]
+ * @return {[type]}      [description]
+ */
+Chat.prototype.clearUnread = function(user) {
+    user.unreadMsgCount = 0;
+    middle.userAvatarComponent.userListScope.$apply();
+};
+
 Chat.prototype.toggleChatView = function(user) {
+
     var chat = this;
     console.log(chat.chatWindow);
     console.log(this);
@@ -105,13 +116,20 @@ Chat.prototype.toggleChatView = function(user) {
  */
 Chat.prototype.receiveMessage = function(message) {
     playMsgComingPromptTone();
-    var sendUser = message.sendUser;
-    if (sendUser === this.currentChat.username) {
+    var sendUserName = message.sendUser;
+    if (sendUserName === this.currentChat.username) {
         // 正式当前聊天的
         message.avatar = this.currentChat.theUser.avatar;
         this.listen(message);
     } else {
         // 当前窗口并不是该用户
+        var user = this.usersMap.get(sendUserName);
+        // 未读消息加1
+        if (user.unreadMsgCount === undefined) {
+            user.unreadMsgCount = 0;
+        }
+        user.unreadMsgCount += 1;
+        middle.userAvatarComponent.userListScope.$apply();
     }
 };
 
@@ -165,6 +183,9 @@ Chat.prototype.refreshUserList = function() {
 Chat.prototype.signIn = function(username) {
     this.connect.sign_in(username);
 };
+
+// key username ,value 客户端 user
+Chat.prototype.usersMap = new Map();
 
 var chat = new Chat();
 var connect = new Connect(chat);
