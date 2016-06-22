@@ -216,7 +216,13 @@
 	    $('#chatWindowDiv').replaceWith(userDom);
 	};
 	
+	/**
+	 * 接收到消息,但不一定会显示出来,只有当前的窗口就是该消息来源时才会显示
+	 * @param  {[type]} message [description]
+	 * @return {[type]}         [description]
+	 */
 	Chat.prototype.receiveMessage = function(message) {
+	    playMsgComingPromptTone();
 	    var sendUser = message.sendUser;
 	    if (sendUser === this.currentChat.username) {
 	        // 正式当前聊天的
@@ -227,6 +233,11 @@
 	    }
 	};
 	
+	/**
+	 * 该方法在会显示出 对方的消息
+	 * @param  {[type]} message [description]
+	 * @return {[type]}         [description]
+	 */
 	Chat.prototype.listen = function(message) {
 	    insertChatMsgLeft(message);
 	    msgScrollEnd();
@@ -291,6 +302,16 @@
 	    chat.chatWindow = chatWindow;
 	
 	});
+	
+	var audio;
+	
+	$(function() {
+	    audio = document.getElementById('audio');
+	});
+	
+	function playMsgComingPromptTone() {
+	    audio.play();
+	}
 	
 	module.exports = chat;
 
