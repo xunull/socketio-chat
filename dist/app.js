@@ -62,6 +62,7 @@
 	        offText: '关闭',
 	        onSwitchChange: function(event, state) {
 	            console.log(state);
+	            chat.settingMsgSoundPrompt();
 	        }
 	    });
 	
@@ -224,6 +225,9 @@
 	    msg_input = userDom.find("#msg-input");
 	    msg_end = userDom.find("#msg_end");
 	
+	    console.log(msg_input);
+	    console.log(msg_end);
+	
 	    $('#chatWindowDiv').replaceWith(userDom);
 	};
 	
@@ -305,6 +309,24 @@
 	// key username ,value 客户端 user
 	Chat.prototype.usersMap = new Map();
 	
+	// 引用设置项
+	Chat.prototype.setting = {
+	    msgSoundPrompt: true
+	};
+	
+	/**
+	 * 设置是否开启消息声音提示,如果不传参数会在两种状态间切换
+	 * @param  {[type]} value [description]
+	 * @return {[type]}       [description]
+	 */
+	Chat.prototype.settingMsgSoundPrompt = function(value) {
+	    if (value === undefined) {
+	        this.setting.msgSoundPrompt = !this.setting.msgSoundPrompt;
+	    } else {
+	        this.setting.msgSoundPrompt = value;
+	    }
+	};
+	
 	var chat = new Chat();
 	var connect = new Connect(chat);
 	chat.connect = connect;
@@ -331,8 +353,11 @@
 	});
 	
 	function playMsgComingPromptTone() {
-	    audio.play();
+	    if (chat.setting.msgSoundPrompt) {
+	        audio.play();
+	    }
 	}
+	
 	
 	module.exports = chat;
 

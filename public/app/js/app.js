@@ -16,6 +16,7 @@ $(function() {
         offText: '关闭',
         onSwitchChange: function(event, state) {
             console.log(state);
+            chat.settingMsgSoundPrompt();
         }
     });
 

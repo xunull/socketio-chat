@@ -45,37 +45,34 @@
             <!-- /.container-fluid -->
         </nav>
         <div class="row chat-container">
-            <!-- <div class="col-sm-3" ng-controller='userList'>
-                <div>
-                    <img class="user-avatar" src="/public/res/img/avatar/avatar0.png" alt="" />
-                    <span>haha</span>
-                </div>
-                <select class="form-control" multiple="">
-                    <option ng-repeat="user in users">{{user.username}}</option>
-                </select>
 
-            </div> -->
+            <div class="chat-container-header">
 
-            <div class="col-sm-3">
-                <user-list></user-list>
             </div>
-
-            <div class="col-sm-6 ">
-
-                <div id="chatWindowDiv">
-
+            <div class="row">
+                <!-- userList -->
+                <div class="col-sm-3 chat-userlist-container">
+                    <user-list></user-list>
                 </div>
-                <!--/.direct-chat -->
-            </div>
-            <div class="col-sm-3">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label for="" class='control-label'>通知声音</label>
-                        <input type="checkbox" name="my-checkbox" checked>
+                <!-- chat window -->
+                <div class="col-sm-6 chat-messagewindow-container">
+                    <div id="chatWindowDiv">
+
                     </div>
+                </div>
+                <!-- setting -->
+                <div class="col-sm-3 chat-setting-container">
 
-                </form>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="" class='control-label'>通知声音</label>
+                            <input type="checkbox" name="my-checkbox" checked>
+                        </div>
+
+                    </form>
+                </div>
             </div>
+
         </div>
     </div>
 

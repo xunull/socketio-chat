@@ -29,7 +29,17 @@
     border: 2px solid #339999;
     border-radius: 6px;
 }
-
 body {
-  background-image: url('../img/background.jpg');
+    background-image: url('../img/background.jpg');
 }
+.chat-container-header {
+    height: 50px;
+    border-bottom-style: solid;
+    border-bottom-color: #339999;
+    margin-bottom: 5px;
+}
+.chat-messagewindow-container {
+    border: 1px solid #339999;
+}
+.chat-userlist-container {}
+.chat-setting-container {}
