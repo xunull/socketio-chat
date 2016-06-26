@@ -1,6 +1,9 @@
 var gulp = require('gulp');
 var cleanCSS = require('gulp-clean-css');
 var webpack = require('webpack-stream');
+var gutil = require('gulp-util');
+var uglify = require('gulp-uglify');
+var pump = require('pump');
 
 var webpack_config = require('./webpack.config');
 
@@ -20,9 +23,19 @@ gulp.task('minify-css', function() {
         .pipe(gulp.dest('dist/app/css'));
 });
 
-gulp.task('minify-js', function() {
+gulp.task('webpack-js', function() {
+    gutil.log('开始打包前端js文件');
     return gulp.src('public/app/js/app.js')
         .pipe(webpack(webpack_config))
+        .pipe(gulp.dest('dist/'));
+});
+
+// 报错
+gulp.task('package-and-compress-js', function() {
+    gutil.log('开始打包和压缩前端js文件');
+    return gulp.src('public/app/js/app.js')
+        .pipe(webpack(webpack_config))
+        .pipe(uglify())
         .pipe(gulp.dest('dist/'));
 });
 
