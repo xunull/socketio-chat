@@ -62,6 +62,7 @@ function initSession(socket) {
  */
 function deliver(letter) {
     this.getSocket().emit('letter', letter);
+    
 }
 
 
